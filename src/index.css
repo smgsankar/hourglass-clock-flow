@@ -2,41 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Sand Clock Timer Design System - Warm amber and glass theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Sand Clock Theme - Warm and elegant */
+    --background: 35 25% 96%;
+    --foreground: 25 45% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 20% 98%;
+    --card-foreground: 25 45% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 20% 98%;
+    --popover-foreground: 25 45% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Warm amber primary colors */
+    --primary: 35 91% 47%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 35 85% 55%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sandy beige secondary */
+    --secondary: 35 30% 90%;
+    --secondary-foreground: 25 45% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted sand tones */
+    --muted: 35 20% 92%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Glass accent */
+    --accent: 200 20% 95%;
+    --accent-foreground: 25 45% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Alert colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Glass borders and inputs */
+    --border: 35 15% 85%;
+    --input: 35 15% 90%;
+    --ring: 35 91% 47%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
+
+    /* Sand Clock Gradients */
+    --gradient-sand: linear-gradient(180deg, hsl(var(--primary-glow)), hsl(var(--primary)));
+    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+    --gradient-background: radial-gradient(ellipse at center, hsl(var(--background)), hsl(35 20% 92%));
+
+    /* Sand Clock Shadows */
+    --shadow-glass: 0 8px 32px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.3);
+    --shadow-sand: 0 4px 20px hsl(var(--primary) / 0.3);
+    --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
+
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-sand: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +121,40 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    background: var(--gradient-background);
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Sand Clock Animations */
+  .sand-fall {
+    animation: sand-fall 1s linear infinite;
+  }
+  
+  .hourglass-flip {
+    animation: hourglass-flip 0.6s ease-in-out;
+  }
+
+  .glass-effect {
+    background: var(--gradient-glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .sand-particle {
+    background: var(--gradient-sand);
+    box-shadow: var(--shadow-sand);
+  }
+
+  .timer-glow {
+    box-shadow: var(--shadow-elegant);
+    transition: var(--transition-smooth);
+  }
+
+  .timer-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elegant), 0 20px 60px -20px hsl(var(--primary) / 0.4);
   }
 }
