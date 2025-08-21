@@ -45,13 +45,28 @@ export const Hourglass = ({ isRunning, progress, onComplete }: HourglassProps) =
         {/* Glass Frame */}
         <div className="absolute inset-0 glass-effect rounded-3xl">
           {/* Top Chamber */}
-          <div className="absolute top-4 left-4 right-4 h-32 rounded-t-2xl overflow-hidden">
+          <div className="absolute top-4 left-4 right-4 h-32 rounded-t-2xl overflow-hidden bg-muted/20">
             {/* Top Sand */}
             <div 
               className="absolute bottom-0 left-0 right-0 sand-particle rounded-b-lg transition-all duration-1000 ease-out"
               style={{ 
                 height: `${topSandHeight}%`,
                 borderRadius: '0 0 50% 50%'
+              }}
+            />
+          </div>
+
+          {/* Neck (narrow middle) */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-8 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+
+          {/* Bottom Chamber */}
+          <div className="absolute bottom-4 left-4 right-4 h-32 rounded-b-2xl overflow-hidden bg-muted/20">
+            {/* Bottom Sand */}
+            <div 
+              className="absolute bottom-0 left-0 right-0 sand-particle rounded-t-lg transition-all duration-1000 ease-out"
+              style={{ 
+                height: `${bottomSandHeight}%`,
+                borderRadius: '50% 50% 0 0'
               }}
             />
             
@@ -62,25 +77,11 @@ export const Hourglass = ({ isRunning, progress, onComplete }: HourglassProps) =
                 className="absolute w-1 h-1 sand-particle rounded-full animate-sand-fall"
                 style={{
                   left: `${45 + Math.random() * 10}%`,
+                  top: '10px',
                   animationDelay: `${particle.delay}s`
                 }}
               />
             ))}
-          </div>
-
-          {/* Neck (narrow middle) */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-8 bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
-
-          {/* Bottom Chamber */}
-          <div className="absolute bottom-4 left-4 right-4 h-32 rounded-b-2xl overflow-hidden">
-            {/* Bottom Sand */}
-            <div 
-              className="absolute bottom-0 left-0 right-0 sand-particle rounded-t-lg transition-all duration-1000 ease-out"
-              style={{ 
-                height: `${bottomSandHeight}%`,
-                borderRadius: '50% 50% 0 0'
-              }}
-            />
           </div>
 
           {/* Decorative elements */}
