@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Hourglass } from '@/components/Hourglass';
 import { TimerInput } from '@/components/TimerInput';
 import { TimerControls } from '@/components/TimerControls';
+import { ThemeSwitcher } from '@/components/ThemeSwitcher';
 import { useTimer } from '@/hooks/useTimer';
 import { toast } from 'sonner';
 
@@ -44,7 +45,12 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative">
+      {/* Theme Switcher */}
+      <div className="absolute top-4 right-4">
+        <ThemeSwitcher />
+      </div>
+
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold bg-gradient-to-r from-primary via-primary-glow to-primary bg-clip-text text-transparent mb-4">
