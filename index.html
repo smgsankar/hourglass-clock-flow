@@ -15,6 +15,29 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!--
+      Applies the stored theme before first paint so the app never flashes light
+      before switching to dark. Mirrors next-themes' defaults: storage key
+      "theme", class attribute, "system" fallback. Keep in sync with App.tsx.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var theme =
+            stored && stored !== "system"
+              ? stored
+              : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.classList.toggle("dark", theme === "dark");
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {
+          /* localStorage unavailable (private mode) - fall back to light */
+        }
+      })();
+    </script>
   </head>
 
   <body>
