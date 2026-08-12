@@ -15,6 +15,28 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
     <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <!--
+      Apply the stored theme before first paint. This is a client-rendered app, so
+      next-themes cannot set the class until React mounts; without this the page
+      would flash light before switching to dark.
+
+      This reimplements shouldUseDark() from src/lib/theme.ts in plain ES5 because
+      it has to run before any module loads. Change the two together.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          var isDark = stored === "dark" || (stored !== "light" && prefersDark);
+          document.documentElement.classList.toggle("dark", isDark);
+          document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+        } catch (e) {
+          /* Storage can be blocked; fall back to the light theme in the stylesheet. */
+        }
+      })();
+    </script>
   </head>
 
   <body>

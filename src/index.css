@@ -6,6 +6,8 @@
 
 @layer base {
   :root {
+    color-scheme: light;
+
     /* Sand Clock Theme - Warm and elegant */
     --background: 35 25% 96%;
     --foreground: 25 45% 15%;
@@ -44,13 +46,23 @@
 
     --radius: 1rem;
 
+    /* Outer edge of the page backdrop, paired with --background */
+    --background-glow: 35 20% 92%;
+
+    /* Glass ingredients - overridden per theme, consumed by the gradients below */
+    --glass-from: rgba(255, 255, 255, 0.3);
+    --glass-to: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --glass-inset: rgba(255, 255, 255, 0.3);
+
     /* Sand Clock Gradients */
     --gradient-sand: linear-gradient(180deg, hsl(var(--primary-glow)), hsl(var(--primary)));
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-    --gradient-background: radial-gradient(ellipse at center, hsl(var(--background)), hsl(35 20% 92%));
+    --gradient-glass: linear-gradient(135deg, var(--glass-from), var(--glass-to));
+    --gradient-background: radial-gradient(ellipse at center, hsl(var(--background)), hsl(var(--background-glow)));
 
     /* Sand Clock Shadows */
-    --shadow-glass: 0 8px 32px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.3);
+    --shadow-glass: 0 8px 32px var(--glass-shadow), inset 0 2px 4px var(--glass-inset);
     --shadow-sand: 0 4px 20px hsl(var(--primary) / 0.3);
     --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
 
@@ -76,41 +88,58 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    color-scheme: dark;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    /* Sand Clock Theme after dark - lamplit amber on warm charcoal */
+    --background: 25 30% 8%;
+    --foreground: 35 25% 92%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --card: 25 25% 12%;
+    --card-foreground: 35 25% 92%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --popover: 25 25% 12%;
+    --popover-foreground: 35 25% 92%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Amber lifts in lightness so it still glows against the dark backdrop */
+    --primary: 35 91% 55%;
+    --primary-foreground: 25 45% 10%;
+    --primary-glow: 40 95% 65%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --secondary: 25 20% 18%;
+    --secondary-foreground: 35 25% 92%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 25 18% 16%;
+    --muted-foreground: 35 15% 65%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 200 15% 20%;
+    --accent-foreground: 35 25% 92%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Light enough for the "less than a minute left" text to clear WCAG AA,
+       so the foreground goes dark like --primary-foreground does. */
+    --destructive: 0 72% 62%;
+    --destructive-foreground: 0 50% 10%;
+
+    --border: 25 18% 22%;
+    --input: 25 18% 20%;
+    --ring: 35 91% 55%;
+
+    --background-glow: 25 35% 5%;
+
+    /* Glass turns to a faint sheen instead of a white wash */
+    --glass-from: rgba(255, 255, 255, 0.08);
+    --glass-to: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.55);
+    --glass-inset: rgba(255, 255, 255, 0.06);
+
+    --sidebar-background: 25 25% 12%;
+    --sidebar-foreground: 35 25% 92%;
+    --sidebar-primary: 35 91% 55%;
+    --sidebar-primary-foreground: 25 45% 10%;
+    --sidebar-accent: 25 20% 18%;
+    --sidebar-accent-foreground: 35 25% 92%;
+    --sidebar-border: 25 18% 22%;
+    --sidebar-ring: 35 91% 55%;
   }
 }
 
@@ -139,7 +168,7 @@
   .glass-effect {
     background: var(--gradient-glass);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-glass);
   }
 
