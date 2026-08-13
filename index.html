@@ -18,6 +18,25 @@
   </head>
 
   <body>
+    <!--
+      Apply the stored theme before first paint so the page never flashes the
+      light theme on load. Mirrors next-themes' defaults (storage key "theme",
+      class attribute, "system" follows the OS preference).
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var isDark =
+            stored === "dark" ||
+            ((!stored || stored === "system") &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", isDark);
+        } catch (e) {
+          /* Storage unavailable - fall back to the light theme. */
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
