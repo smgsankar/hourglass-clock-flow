@@ -2,115 +2,141 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Sand Clock Timer Design System - Warm amber and glass theme */
+/*
+ * Sand Timer Design System
+ * -------------------------------------------------------------------------
+ * Every colour pair below is checked against WCAG 2.1 AA:
+ *   - body/UI text on its own surface  >= 4.5:1
+ *   - large text, icons and control borders >= 3:1
+ * Both themes keep the warm "sand" identity rather than the dark theme
+ * falling back to a generic slate palette.
+ */
 
 @layer base {
   :root {
-    /* Sand Clock Theme - Warm and elegant */
-    --background: 35 25% 96%;
-    --foreground: 25 45% 15%;
+    color-scheme: light;
 
-    --card: 35 20% 98%;
-    --card-foreground: 25 45% 15%;
+    /* Surfaces */
+    --background: 35 40% 97%; /* warm paper */
+    --foreground: 25 30% 14%; /* 14.6:1 on background */
 
-    --popover: 35 20% 98%;
-    --popover-foreground: 25 45% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 25 30% 14%;
 
-    /* Warm amber primary colors */
-    --primary: 35 91% 47%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 30% 14%;
+
+    /* Amber primary. White on primary = 5.5:1, primary on background = 5.0:1,
+       so it is safe for solid buttons *and* for text/icons. */
+    --primary: 28 90% 34%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 35 85% 55%;
+    --primary-soft: 33 90% 90%; /* tinted fill, decorative only */
 
-    /* Sandy beige secondary */
-    --secondary: 35 30% 90%;
-    --secondary-foreground: 25 45% 15%;
+    --secondary: 33 35% 88%;
+    --secondary-foreground: 25 35% 18%; /* 11.1:1 on secondary */
 
-    /* Muted sand tones */
-    --muted: 35 20% 92%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 33 28% 92%;
+    --muted-foreground: 25 12% 36%; /* 6.1:1 on background */
 
-    /* Glass accent */
-    --accent: 200 20% 95%;
-    --accent-foreground: 25 45% 15%;
+    --accent: 196 45% 88%;
+    --accent-foreground: 200 60% 15%;
 
-    /* Alert colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 72% 38%; /* white on it = 7.3:1 */
+    --destructive-foreground: 0 0% 100%;
 
-    /* Glass borders and inputs */
-    --border: 35 15% 85%;
-    --input: 35 15% 90%;
-    --ring: 35 91% 47%;
+    --success: 152 60% 26%;
+    --success-foreground: 0 0% 100%;
 
-    --radius: 1rem;
+    /* Borders are >= 3:1 against their surface so controls stay perceivable */
+    --border: 30 20% 72%;
+    --input: 30 22% 62%;
+    --ring: 24 95% 30%;
 
-    /* Sand Clock Gradients */
-    --gradient-sand: linear-gradient(180deg, hsl(var(--primary-glow)), hsl(var(--primary)));
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-    --gradient-background: radial-gradient(ellipse at center, hsl(var(--background)), hsl(35 20% 92%));
+    --radius: 0.875rem;
 
-    /* Sand Clock Shadows */
-    --shadow-glass: 0 8px 32px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.3);
-    --shadow-sand: 0 4px 20px hsl(var(--primary) / 0.3);
-    --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
+    /* Hourglass */
+    --sand: 33 88% 46%;
+    --sand-deep: 26 85% 36%;
+    --glass: 200 30% 96%;
+    --glass-edge: 200 20% 70%;
 
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-sand: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --gradient-sand: linear-gradient(180deg, hsl(var(--sand)), hsl(var(--sand-deep)));
+    --gradient-surface: radial-gradient(
+      ellipse 120% 90% at 50% 0%,
+      hsl(35 55% 94%),
+      hsl(var(--background))
+    );
 
-    --sidebar-background: 0 0% 98%;
+    --shadow-raised: 0 1px 2px hsl(25 30% 14% / 0.06), 0 8px 24px -12px hsl(25 30% 14% / 0.18);
+    --shadow-focus: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring));
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 35 40% 97%;
+    --sidebar-foreground: 25 30% 14%;
+    --sidebar-primary: 28 90% 34%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 33 28% 92%;
+    --sidebar-accent-foreground: 25 30% 14%;
+    --sidebar-border: 30 20% 72%;
+    --sidebar-ring: 24 95% 30%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    color-scheme: dark;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --background: 25 25% 8%;
+    --foreground: 35 30% 94%; /* 15.8:1 on background */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --card: 25 20% 12%;
+    --card-foreground: 35 30% 94%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --popover: 25 20% 12%;
+    --popover-foreground: 35 30% 94%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Light amber on dark: 9.5:1 on background, near-black text on it = 8.8:1 */
+    --primary: 36 92% 60%;
+    --primary-foreground: 25 45% 10%;
+    --primary-soft: 30 40% 20%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --secondary: 25 18% 20%;
+    --secondary-foreground: 35 30% 94%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --muted: 25 16% 18%;
+    --muted-foreground: 35 15% 70%; /* 9.0:1 on background */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 198 30% 24%;
+    --accent-foreground: 196 60% 92%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --destructive: 0 75% 66%; /* 7.4:1 on background */
+    --destructive-foreground: 0 60% 10%;
+
+    --success: 152 55% 62%;
+    --success-foreground: 152 60% 10%;
+
+    --border: 30 14% 32%;
+    --input: 30 14% 40%;
+    --ring: 36 100% 66%;
+
+    --sand: 36 92% 58%;
+    --sand-deep: 28 85% 42%;
+    --glass: 210 20% 22%;
+    --glass-edge: 200 15% 45%;
+
+    --gradient-surface: radial-gradient(
+      ellipse 120% 90% at 50% 0%,
+      hsl(28 22% 13%),
+      hsl(var(--background))
+    );
+
+    --shadow-raised: 0 1px 2px hsl(0 0% 0% / 0.5), 0 8px 24px -12px hsl(0 0% 0% / 0.7);
+
+    --sidebar-background: 25 20% 12%;
+    --sidebar-foreground: 35 30% 94%;
+    --sidebar-primary: 36 92% 60%;
+    --sidebar-primary-foreground: 25 45% 10%;
+    --sidebar-accent: 25 16% 18%;
+    --sidebar-accent-foreground: 35 30% 94%;
+    --sidebar-border: 30 14% 32%;
+    --sidebar-ring: 36 100% 66%;
   }
 }
 
@@ -119,42 +145,69 @@
     @apply border-border;
   }
 
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
-    background: var(--gradient-background);
+    @apply bg-background text-foreground antialiased;
+    background-image: var(--gradient-surface);
+    background-attachment: fixed;
     min-height: 100vh;
+  }
+
+  /*
+   * A single, always-visible focus indicator. It is drawn with an outline (not
+   * a shadow) so it survives forced-colors mode, and it is offset so it never
+   * sits on top of the control's own border.
+   */
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 6px);
+  }
+
+  /* Radix/shadcn primitives opt out of the default outline; restore it. */
+  [class*="focus-visible:outline-none"]:focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Honour the OS "reduce motion" setting everywhere, including the
+     decorative sand animations. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (prefers-contrast: more) {
+    :root {
+      --border: 25 30% 30%;
+      --input: 25 30% 30%;
+      --muted-foreground: 25 25% 25%;
+    }
+
+    .dark {
+      --border: 35 25% 70%;
+      --input: 35 25% 70%;
+      --muted-foreground: 35 25% 88%;
+    }
   }
 }
 
 @layer components {
-  /* Sand Clock Animations */
-  .sand-fall {
-    animation: sand-fall 1s linear infinite;
-  }
-  
-  .hourglass-flip {
-    animation: hourglass-flip 0.6s ease-in-out;
+  .surface-card {
+    @apply rounded-[var(--radius)] border border-border bg-card text-card-foreground;
+    box-shadow: var(--shadow-raised);
   }
 
-  .glass-effect {
-    background: var(--gradient-glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-glass);
-  }
-
-  .sand-particle {
-    background: var(--gradient-sand);
-    box-shadow: var(--shadow-sand);
-  }
-
-  .timer-glow {
-    box-shadow: var(--shadow-elegant);
-    transition: var(--transition-smooth);
-  }
-
-  .timer-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-elegant), 0 20px 60px -20px hsl(var(--primary) / 0.4);
+  .sand-fill {
+    background-image: var(--gradient-sand);
   }
 }

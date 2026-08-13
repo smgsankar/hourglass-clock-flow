@@ -1,5 +1,6 @@
-import { Play, Pause, Square, RotateCcw } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Pause, Play, RotateCcw, Square } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 
 interface TimerControlsProps {
   isRunning: boolean;
@@ -11,58 +12,70 @@ interface TimerControlsProps {
   disabled?: boolean;
 }
 
-export const TimerControls = ({ 
-  isRunning, 
-  isPaused, 
-  onStart, 
-  onPause, 
-  onStop, 
+/**
+ * Start/pause is a single button in a fixed position so keyboard and switch
+ * users are not forced to re-find it every time the timer changes state.
+ * Stop and Reset stay mounted (disabled when unavailable) for the same reason —
+ * controls appearing and disappearing mid-session breaks focus.
+ */
+export const TimerControls = ({
+  isRunning,
+  isPaused,
+  onStart,
+  onPause,
+  onStop,
   onReset,
-  disabled 
+  disabled,
 }: TimerControlsProps) => {
+  const isCountingDown = isRunning && !isPaused;
+  const canStop = isRunning || isPaused;
+
   return (
-    <div className="flex items-center justify-center gap-4">
-      {!isRunning || isPaused ? (
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      {isCountingDown ? (
         <Button
-          onClick={onStart}
-          disabled={disabled}
+          type="button"
           size="lg"
-          className="px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-2xl timer-glow transition-all duration-300"
+          variant="secondary"
+          onClick={onPause}
+          className="min-h-touch min-w-[8rem] gap-2 text-base"
         >
-          <Play className="w-5 h-5 mr-2" />
-          {isPaused ? 'Resume' : 'Start'}
+          <Pause aria-hidden="true" />
+          Pause
         </Button>
       ) : (
         <Button
-          onClick={onPause}
+          type="button"
           size="lg"
-          variant="secondary"
-          className="px-8 py-3 font-semibold rounded-2xl timer-glow transition-all duration-300"
+          onClick={onStart}
+          disabled={disabled}
+          className="min-h-touch min-w-[8rem] gap-2 text-base"
         >
-          <Pause className="w-5 h-5 mr-2" />
-          Pause
-        </Button>
-      )}
-
-      {(isRunning || isPaused) && (
-        <Button
-          onClick={onStop}
-          size="lg"
-          variant="destructive"
-          className="px-6 py-3 font-semibold rounded-2xl timer-glow transition-all duration-300"
-        >
-          <Square className="w-5 h-5 mr-2" />
-          Stop
+          <Play aria-hidden="true" />
+          {isPaused ? "Resume" : "Start"}
         </Button>
       )}
 
       <Button
-        onClick={onReset}
+        type="button"
+        size="lg"
+        variant="destructive"
+        onClick={onStop}
+        disabled={!canStop}
+        className="min-h-touch gap-2 text-base"
+      >
+        <Square aria-hidden="true" />
+        Stop
+      </Button>
+
+      <Button
+        type="button"
         size="lg"
         variant="outline"
-        className="px-6 py-3 font-semibold rounded-2xl timer-glow bg-card/50 border-border/50 hover:bg-accent/50 transition-all duration-300"
+        onClick={onReset}
+        className="min-h-touch gap-2 text-base"
       >
-        <RotateCcw className="w-5 h-5 mr-2" />
+        <RotateCcw aria-hidden="true" />
         Reset
       </Button>
     </div>

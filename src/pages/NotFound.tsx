@@ -1,5 +1,8 @@
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+import { AppLayout } from "@/components/AppLayout";
+import { Button } from "@/components/ui/button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,15 +15,21 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
-        </a>
+    <AppLayout>
+      <div className="mx-auto flex max-w-lg flex-col items-center gap-6 py-12 text-center">
+        <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+          Error 404
+        </p>
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Page not found</h1>
+        <p className="text-lg text-muted-foreground">
+          We could not find <code className="font-mono">{location.pathname}</code>. It may
+          have been moved or removed.
+        </p>
+        <Button asChild size="lg" className="min-h-touch">
+          <Link to="/">Back to the timer</Link>
+        </Button>
       </div>
-    </div>
+    </AppLayout>
   );
 };
 

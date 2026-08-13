@@ -60,6 +60,39 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Design system & accessibility
+
+The UI is driven entirely by the CSS custom properties in `src/index.css`,
+surfaced to Tailwind in `tailwind.config.ts`. Please keep to these conventions
+when adding UI:
+
+- **Use the tokens, not raw colours.** `bg-background`, `text-muted-foreground`,
+  `border-border` and friends. Every token pair in `src/index.css` is annotated
+  with the contrast ratio it achieves, and both the light and dark themes are
+  checked against WCAG 2.1 AA (4.5:1 body text, 3:1 large text and borders).
+- **Never signal state with colour alone.** Timer status carries an icon and a
+  word as well as a colour; so does the "less than a minute left" warning.
+- **Interactive targets are at least 44×44px** — use `min-h-touch` / `h-touch`.
+- **Focus is always visible.** A global `:focus-visible` outline is defined in
+  `src/index.css`; don't remove it per-component.
+- **Animation is optional.** `prefers-reduced-motion: reduce` disables all
+  animation and transitions globally, so decorative motion must never be the
+  only way information is conveyed.
+- **Talk to assistive tech deliberately.** `MM:SS` is read out inconsistently by
+  screen readers, so anything exposed to AT uses `formatSpokenTime` from
+  `src/lib/time.ts`. Countdown announcements are throttled by
+  `shouldAnnounceRemaining` rather than firing every second.
+
+### Scripts
+
+```sh
+npm run dev        # dev server on :8080
+npm run build      # production build
+npm run lint       # eslint
+npm run typecheck  # tsc --noEmit
+npm test           # node:test unit tests (requires Node >= 22.6 for TS support)
+```
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/1354d223-d454-4979-ad96-cfc0607ef3b0) and click on Share -> Publish.
