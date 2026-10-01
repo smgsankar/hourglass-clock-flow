@@ -12,7 +12,7 @@ interface TimerInputProps {
 }
 
 /** One tap for the durations people actually set; the fields cover the rest. */
-export const PRESETS: { label: string; seconds: number }[] = [
+const PRESETS: { label: string; seconds: number }[] = [
   { label: '1 min', seconds: 60 },
   { label: '5 min', seconds: 300 },
   { label: '10 min', seconds: 600 },
