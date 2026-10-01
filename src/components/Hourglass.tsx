@@ -36,7 +36,11 @@ export const Hourglass = ({ isRunning, progress, onComplete }: HourglassProps) =
   const bottomSandHeight = Math.min(100, progress);
 
   return (
-    <div className="relative flex flex-col items-center">
+    <div
+      className="relative flex flex-col items-center"
+      role="img"
+      aria-label={`Hourglass, ${Math.round(progress)} percent elapsed`}
+    >
       {/* Hourglass Container */}
       <div 
         className={`relative w-48 h-80 ${shouldFlip ? 'hourglass-flip' : ''}`}
