@@ -2,115 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Sand Clock Timer Design System - Warm amber and glass theme */
+/*
+ * Sand Timer design system.
+ * Light: warm, toy-like, sunny desert by day.
+ * Dark (follows prefers-color-scheme, no toggle): starry desert night.
+ * All colour tokens are bare HSL triplets consumed as hsl(var(--x)).
+ */
 
 @layer base {
   :root {
-    /* Sand Clock Theme - Warm and elegant */
-    --background: 35 25% 96%;
-    --foreground: 25 45% 15%;
+    color-scheme: light;
 
-    --card: 35 20% 98%;
-    --card-foreground: 25 45% 15%;
+    --background: 40 60% 96%;
+    --foreground: 20 35% 18%;
 
-    --popover: 35 20% 98%;
-    --popover-foreground: 25 45% 15%;
+    --card: 40 70% 99%;
+    --card-foreground: 20 35% 18%;
 
-    /* Warm amber primary colors */
-    --primary: 35 91% 47%;
+    --popover: 40 70% 99%;
+    --popover-foreground: 20 35% 18%;
+
+    /* Light CTA tokens keep >= 4.5:1 against white text, including the /90 hover (F004). */
+    --primary: 18 85% 39%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 35 85% 55%;
 
-    /* Sandy beige secondary */
-    --secondary: 35 30% 90%;
-    --secondary-foreground: 25 45% 15%;
+    --secondary: 32 80% 90%;
+    --secondary-foreground: 20 35% 18%;
 
-    /* Muted sand tones */
-    --muted: 35 20% 92%;
-    --muted-foreground: 25 15% 45%;
+    --muted: 36 40% 92%;
+    --muted-foreground: 24 15% 42%;
 
-    /* Glass accent */
-    --accent: 200 20% 95%;
-    --accent-foreground: 25 45% 15%;
+    --accent: 174 60% 28%;
+    --accent-foreground: 0 0% 100%;
 
-    /* Alert colors */
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 356 75% 45%;
+    --destructive-foreground: 0 0% 100%;
 
-    /* Glass borders and inputs */
-    --border: 35 15% 85%;
-    --input: 35 15% 90%;
-    --ring: 35 91% 47%;
+    --border: 32 35% 84%;
+    --input: 32 35% 84%;
+    --ring: 18 85% 39%;
 
-    --radius: 1rem;
+    --radius: 1.25rem;
 
-    /* Sand Clock Gradients */
-    --gradient-sand: linear-gradient(180deg, hsl(var(--primary-glow)), hsl(var(--primary)));
-    --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
-    --gradient-background: radial-gradient(ellipse at center, hsl(var(--background)), hsl(35 20% 92%));
+    /* Hourglass art */
+    --sand-light: 42 95% 72%;
+    --sand: 38 90% 58%;
+    --sand-dark: 30 80% 45%;
+    --glass: 195 60% 92%;
+    --glass-edge: 200 35% 60%;
+    --wood-light: 28 60% 58%;
+    --wood: 22 55% 42%;
+    --wood-dark: 18 50% 28%;
+    /* Face blush (cheeks + finished tongue): decoupled from --primary so it reads on the wood head (F020). */
+    --blush: 348 95% 82%;
 
-    /* Sand Clock Shadows */
-    --shadow-glass: 0 8px 32px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.3);
-    --shadow-sand: 0 4px 20px hsl(var(--primary) / 0.3);
-    --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.2);
+    --sidebar-background: 40 70% 99%;
+    --sidebar-foreground: 20 35% 18%;
+    --sidebar-primary: 18 85% 39%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 32 80% 90%;
+    --sidebar-accent-foreground: 20 35% 18%;
+    --sidebar-border: 32 35% 84%;
+    --sidebar-ring: 18 85% 39%;
 
-    /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-sand: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sunny glow top-left, apricot warmth bottom-right. */
+    --app-backdrop:
+      radial-gradient(ellipse 60% 50% at 8% 4%, hsl(46 100% 82% / 0.75), transparent 70%),
+      radial-gradient(ellipse 55% 45% at 95% 98%, hsl(28 95% 84% / 0.65), transparent 70%),
+      hsl(var(--background));
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+      --background: 240 30% 11%;
+      --foreground: 40 50% 94%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+      --card: 240 25% 16%;
+      --card-foreground: 40 50% 94%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+      --popover: 240 25% 16%;
+      --popover-foreground: 40 50% 94%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+      --primary: 24 95% 62%;
+      --primary-foreground: 240 30% 11%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+      --secondary: 240 20% 22%;
+      --secondary-foreground: 40 50% 94%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+      --muted: 240 18% 20%;
+      --muted-foreground: 240 10% 70%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+      --accent: 174 60% 50%;
+      --accent-foreground: 240 30% 11%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+      --destructive: 356 80% 62%;
+      --destructive-foreground: 240 30% 11%;
+
+      --border: 240 15% 26%;
+      --input: 240 15% 26%;
+      --ring: 24 95% 62%;
+
+      --sand-light: 44 95% 75%;
+      --sand: 40 92% 62%;
+      --sand-dark: 32 85% 50%;
+      --glass: 210 40% 30%;
+      --glass-edge: 205 45% 65%;
+      /* Lit wood so the dark face ink stays >= 4.5:1 across the head gradient (F017). */
+      --wood-light: 30 50% 60%;
+      --wood: 26 48% 50%;
+      --wood-dark: 18 40% 22%;
+      --blush: 348 100% 86%;
+
+      --sidebar-background: 240 25% 16%;
+      --sidebar-foreground: 40 50% 94%;
+      --sidebar-primary: 24 95% 62%;
+      --sidebar-primary-foreground: 240 30% 11%;
+      --sidebar-accent: 240 20% 22%;
+      --sidebar-accent-foreground: 40 50% 94%;
+      --sidebar-border: 240 15% 26%;
+      --sidebar-ring: 24 95% 62%;
+
+      /* Faint violet glow plus a scatter of tiny stars. */
+      --app-backdrop:
+        radial-gradient(1.5px 1.5px at 12% 18%, hsl(0 0% 100% / 0.8), transparent),
+        radial-gradient(1px 1px at 27% 62%, hsl(0 0% 100% / 0.6), transparent),
+        radial-gradient(1.5px 1.5px at 41% 9%, hsl(0 0% 100% / 0.7), transparent),
+        radial-gradient(1px 1px at 58% 34%, hsl(0 0% 100% / 0.55), transparent),
+        radial-gradient(1.5px 1.5px at 73% 14%, hsl(0 0% 100% / 0.75), transparent),
+        radial-gradient(1px 1px at 86% 48%, hsl(0 0% 100% / 0.6), transparent),
+        radial-gradient(1px 1px at 92% 82%, hsl(0 0% 100% / 0.5), transparent),
+        radial-gradient(1.5px 1.5px at 6% 88%, hsl(0 0% 100% / 0.6), transparent),
+        radial-gradient(ellipse 70% 55% at 15% 0%, hsl(265 60% 35% / 0.45), transparent 70%),
+        radial-gradient(ellipse 60% 50% at 100% 100%, hsl(250 50% 25% / 0.5), transparent 70%),
+        hsl(var(--background));
+    }
   }
 }
 
@@ -120,41 +147,40 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    background: var(--gradient-background);
+    @apply bg-background text-foreground font-sans;
+    background: var(--app-backdrop);
+    background-attachment: fixed;
     min-height: 100vh;
+  }
+
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
   }
 }
 
 @layer components {
-  /* Sand Clock Animations */
-  .sand-fall {
-    animation: sand-fall 1s linear infinite;
-  }
-  
-  .hourglass-flip {
-    animation: hourglass-flip 0.6s ease-in-out;
+  /* SVG elements default to the viewport origin; these pin transforms to the element box. */
+  .svg-origin-center {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
-  .glass-effect {
-    background: var(--gradient-glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-glass);
+  .svg-origin-bottom {
+    transform-box: fill-box;
+    transform-origin: bottom center;
   }
+}
 
-  .sand-particle {
-    background: var(--gradient-sand);
-    box-shadow: var(--shadow-sand);
-  }
-
-  .timer-glow {
-    box-shadow: var(--shadow-elegant);
-    transition: var(--transition-smooth);
-  }
-
-  .timer-glow:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-elegant), 0 20px 60px -20px hsl(var(--primary) / 0.4);
+/* Reduced motion: neutralise every custom animation (C5). */
+@media (prefers-reduced-motion: reduce) {
+  .animate-sand-stream,
+  .animate-grain-fall,
+  .animate-hourglass-flip-in,
+  .animate-idle-bob,
+  .animate-celebrate-pop,
+  .animate-confetti-burst,
+  .animate-warn-wiggle {
+    animation: none !important;
   }
 }
